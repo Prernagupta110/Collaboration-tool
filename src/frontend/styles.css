@@ -1,0 +1,54 @@
+/* styles.css */
+body {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    height: 100vh;
+    margin: 0;
+}
+
+#chat-box {
+    width: 300px;
+    /* Adjust as needed */
+    overflow: scroll;
+    border: 1px solid #ccc;
+    margin-top: 20px;
+}
+
+#chat-box p:nth-child(even) {
+    background-color: #f2f2f2;
+    /* Grey background for every second element */
+}
+
+.horizontal-container {
+    display: flex;
+    align-items: center;
+}
+
+.all-collab-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+#rtt-chat-display {
+    /* white-space: pre-wrap; */
+    max-width: 300px;
+    /* Adjust as needed */
+    font-family: monospace;
+}
+
+input,
+button {
+    margin-top: 10px;
+}
+
+.container {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+}
+
+.center {
+    text-align: center;
+}

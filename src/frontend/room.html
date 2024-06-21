@@ -1,0 +1,128 @@
+<!-- index.html -->
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Collaboration App</title>
+    <link rel="stylesheet" href="/styles.css">
+</head>
+
+<body>
+    <div class="horizontal-container">
+        <div>
+            <div class="center">
+                <input type="text" id="chat-input" placeholder="Type your message..." disabled>
+                <input type="text" id="username-input" placeholder="Enter your name...">
+                <button onclick="sendMessage()">Send</button>
+            </div>
+
+            <div id="chat-box"></div>
+        </div>
+        <div id="rtt-chat-display">
+            Send messages to calculate RTT
+        </div>
+    </div>
+    <div class="all-collab-container">
+        <div id="collaboration-box">
+            <textarea id="collaboration-document" rows="50" cols="100"
+                      placeholder="Please type your work here..."></textarea>
+        </div>
+        <div class="horizontal-container" style="justify-content: space-between;">
+            <div id="rtt-document-display">
+                Update the document to calculate RTT
+            </div>
+            <div style="width: 700px; margin-left: 50px">
+                <div>
+                    We ran into an issue where rendering takes significantly longer than sending/receiving packets. So
+                    here, you can simulate updating the document packets without triggering a re-render. (see console
+                    for details).
+                    <br>
+                    Choose the amount of bytes you want to send and press "simulate"
+                </div>
+                <input type="number" id="sim-len" placeholder="how many bytes to add..." value="500" min="1">
+                <button onclick="simulate_update()">Simulate!</button>
+            </div>
+        </div>
+    </div>
+
+    <div class="center">
+        <h2>Delete the room?</h2>
+        <input type="password" id="delete-input" placeholder="room password...">
+        <button onclick="deleteRoom()">Delete room</button>
+    </div>
+    <div class="center">
+        <h2>Download the file</h2>
+        <button onclick="downloadFile()">Download your file here ...</button>
+    </div>
+    <!-- for uploading pictures -->
+    <div class="center">
+        <h2>Insert an image</h2>
+        <input type="file" id="image-upload" accept="image/*">
+    </div>
+    <script src="/diff_match_patch.js"></script>
+    <script src="/handleWebSockets.js"></script>
+    <script src="/deleteRoom.js"></script>
+    <script src="/FileSaver.min.js"></script>
+    <script>
+        function downloadFile() {
+            var content = document.getElementById("collaboration-document").value;
+            var blob;
+            var filename;
+
+            /*
+            Note: the previous implementation 
+            has undefined format. For now, 
+            we just define the format to contantly "text".
+            I've left the previous code untouched, just added a line that 
+            defines the format.
+            */
+            let format = "text"
+
+            if (format === "text") {
+                blob = new Blob([content], { type: "text/plain" });
+                filename = "collaboration_document.txt";
+            } else if (format === "csv") {
+                // Assuming content is already in CSV format
+                blob = new Blob([content], { type: "text/csv" });
+                filename = "collaboration_document.csv";
+            } else {
+                // Default to text format if no valid format is provided
+                blob = new Blob([content], { type: "text/html" });
+                filename = "collaboration_document.html";
+            }
+            saveAs(blob, filename);
+        }
+        var collaborationBox = document.getElementById("collaboration-box");
+        // var images = collaborationBox.getElementsByTagName("img");
+
+        // Include image file names in the content
+        var images = document.getElementById("collaboration-box").getElementsByTagName("img");
+        // Include image file names in the content
+        for (var i = 0; i < images.length; i++) {
+            var imgAlt = images[i].alt;
+            // Append image file name to content
+            content += "\n\n" + imgAlt + "\n\n";
+        }
+
+        document.getElementById("image-upload").addEventListener("change", function (event) {
+            var file = event.target.files[0];
+            var reader = new FileReader();
+
+            reader.onload = function (e) {
+                var img = document.createElement("img");
+                img.src = e.target.result;
+                img.alt = file.name;
+
+                // Insert the image element into the collaboration box
+                var collaborationBox = document.getElementById("collaboration-box");
+                collaborationBox.insertBefore(img, collaborationBox.firstChild);
+            };
+
+            reader.readAsDataURL(file);
+        });
+    </script>
+</body>
+
+</html>

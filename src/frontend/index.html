@@ -1,0 +1,45 @@
+<!-- index.html -->
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Collaboration App</title>
+    <link rel="stylesheet" href="/styles.css">
+</head>
+
+<body>
+    <div class="container">
+        <div class="center">
+            <h2>Create a new room</h2>
+            <div>
+                <div>
+                    Password protect your room!
+                    <br>
+                    Only the person who knows the password can delete it
+                </div>
+                <input type="password" id="newroom-input" placeholder="room password...">
+            </div>
+            <div>
+                <div>
+                    Start your collaboration experience with an optional template in the form of a <b>.txt</b>
+                    file
+                    <br>
+                    (leave empty for a blank document)
+                </div>
+                <input type="file" id="fileInput" accept=".txt">
+                <!-- <button onclick="uploadFile()">Upload File</button> -->
+            </div>
+            <button onclick="createRoom()">Create room</button>
+        </div>
+        <div class="center">
+            <h2>Join existing room</h2>
+            <input type="text" id="joinroom-input" placeholder="login token...">
+            <button onclick="joinRoom()">Join room</button>
+        </div>
+    </div>
+    <script src="/createOrJoinRoom.js"></script>
+</body>
+
+</html>
