@@ -1,4 +1,4 @@
-# Internet-protocols-collabtool-G
+Collaboration tool
 
 
 To get started with the code, run `npm install` in the file root. Then to run the backend, run `node /path/to/backend.js`.
