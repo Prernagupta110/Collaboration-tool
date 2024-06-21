@@ -11,11 +11,6 @@ The app currently works by connecting to the address `https://localhost:port` th
 
 If you don't want to create a new room, you may instead choose to join one. The url for a room always looks like `localhost:port/room/<token here>`. Upon joining a room, you will the saved document for the room.
 
-
-## Note:
-As of the evening of 20/03/2024, the code for the app will not be touched anymore. However, the final report is included in the git repo, and it is not finished yet. Therefore, there will be commits in the repo after the deadline for the implementation, but only for the documentation. 
-
-
 # Current state of the project
 
 The app works over HTTPS and uses WSS for secure and encrypted communication between server-client and client-server.
